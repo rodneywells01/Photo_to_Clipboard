@@ -30,6 +30,8 @@ namespace Photo_to_Clipboard
 {
     public partial class Form1 : Form
     {
+        private AccessToken myAccessToken;
+
         public Form1()
         {
             InitializeComponent();
@@ -76,7 +78,27 @@ namespace Photo_to_Clipboard
             labelInformation.Text = "Image has been set!";
         }
 
-        
+        private string GetAccessToken()
+        {
+            if (myAccessToken != null && myAccessToken.IsValid)
+            {
+                return myAccessToken.Token;
+            }
+
+            using (FormWebBrowser authBrowser = new FormWebBrowser())
+            {
+                if (authBrowser.ShowDialog() != DialogResult.OK) return string.Empty;
+                myAccessToken = new AccessToken();
+                myAccessToken.Token = authBrowser.AccessToken;
+                return myAccessToken.Token;
+                labelInformation.Text = myAccessToken.Token;
+            }
+        }
+
+        private void buttonLogin_Click(object sender, EventArgs e)
+        {
+            labelInformation.Text = "Access Token: " + GetAccessToken();
+        }
     }
 
 

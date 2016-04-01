@@ -31,13 +31,14 @@
             this.buttonSetClipboard = new System.Windows.Forms.Button();
             this.textBoxDesiredText = new System.Windows.Forms.TextBox();
             this.labelInformation = new System.Windows.Forms.Label();
+            this.buttonLogin = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // buttonSetClipboard
             // 
-            this.buttonSetClipboard.Location = new System.Drawing.Point(35, 197);
+            this.buttonSetClipboard.Location = new System.Drawing.Point(35, 210);
             this.buttonSetClipboard.Name = "buttonSetClipboard";
-            this.buttonSetClipboard.Size = new System.Drawing.Size(203, 53);
+            this.buttonSetClipboard.Size = new System.Drawing.Size(203, 40);
             this.buttonSetClipboard.TabIndex = 0;
             this.buttonSetClipboard.Text = "Set Clipboard";
             this.buttonSetClipboard.UseVisualStyleBackColor = true;
@@ -59,11 +60,22 @@
             this.labelInformation.TabIndex = 2;
             this.labelInformation.Text = "label1";
             // 
+            // buttonLogin
+            // 
+            this.buttonLogin.Location = new System.Drawing.Point(35, 164);
+            this.buttonLogin.Name = "buttonLogin";
+            this.buttonLogin.Size = new System.Drawing.Size(203, 40);
+            this.buttonLogin.TabIndex = 3;
+            this.buttonLogin.Text = "Login";
+            this.buttonLogin.UseVisualStyleBackColor = true;
+            this.buttonLogin.Click += new System.EventHandler(this.buttonLogin_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 262);
+            this.Controls.Add(this.buttonLogin);
             this.Controls.Add(this.labelInformation);
             this.Controls.Add(this.textBoxDesiredText);
             this.Controls.Add(this.buttonSetClipboard);
@@ -79,6 +91,7 @@
         private System.Windows.Forms.Button buttonSetClipboard;
         private System.Windows.Forms.TextBox textBoxDesiredText;
         private System.Windows.Forms.Label labelInformation;
+        private System.Windows.Forms.Button buttonLogin;
     }
 }
 
