@@ -47,31 +47,59 @@ namespace Photo_to_Clipboard
         {
             if (this.oneDriveClient == null)
             {
-                OneDriveClient.GetMicrosoftAccountClient(
+                
+                this.oneDriveClient = OneDriveClient.GetMicrosoftAccountClient(
                     _clientID,
                     _signInUrl,
                     _scope,
-                    //webAuthenticationUi: new FormsWebAuthenticationUi(),
-                    webAuthenticationUi: webBrowser1
-                    
-                    );
-            }
-
-
-            /*
-            try
-            {
-                if(!this.oneDriveClient.IsAuthenticated)
+                    webAuthenticationUi: new FormsWebAuthenticationUi()                 
+                );
+                try
                 {
-                    await this.oneDriveClient.AuthenticateAsync();
+                    if(!this.oneDriveClient.IsAuthenticated)
+                    {
+                        await this.oneDriveClient.AuthenticateAsync();
+                    }
                 }
-                UpdateCo
-                // await LoadFolderFromPath();
-            }
-*/
-            //webBrowser1.DocumentCompleted += webBrowser1_DocumentCompleted; // No idea what this is
-            //webBrowser1.Navigate(string.Format(_signInUrl, _clientID, _scope));
+                catch (OneDriveException exception)
+                {
+                    if (!exception.IsMatch(OneDriveErrorCode.AuthenticationCancelled.ToString()))
+                    {
+                        if (exception.IsMatch(OneDriveErrorCode.AuthenticationFailure.ToString()))
+                        {
+                            MessageBox.Show(
+                                "Authentication failed",
+                                "Authentication failed", MessageBoxButtons.OK);
 
+                            var httpProvider = this.oneDriveClient.HttpProvider as HttpProvider;
+                            httpProvider.Dispose();
+                            this.oneDriveClient = null;                               
+                        }
+                        else
+                        {
+                            PresentOneDriveException(exception);
+                        }
+                    }
+                }
+
+            }
+        }
+
+
+        private static void PresentOneDriveException(Exception exception)
+        {
+            string message = null;
+            var oneDriveException = exception as OneDriveException;
+            if (oneDriveException == null)
+            {
+                message = exception.Message;
+            }
+            else
+            {
+                message = string.Format("{0}{1}", Environment.NewLine, oneDriveException.ToString());
+            }
+
+            MessageBox.Show(string.Format("OneDrive reported the following error: {0}", message));
         }
 
         private void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)

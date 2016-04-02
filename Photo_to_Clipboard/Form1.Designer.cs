@@ -32,6 +32,7 @@
             this.textBoxDesiredText = new System.Windows.Forms.TextBox();
             this.labelInformation = new System.Windows.Forms.Label();
             this.buttonLogin = new System.Windows.Forms.Button();
+            this.buttonInvestigate = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // buttonSetClipboard
@@ -70,17 +71,30 @@
             this.buttonLogin.UseVisualStyleBackColor = true;
             this.buttonLogin.Click += new System.EventHandler(this.buttonLogin_Click);
             // 
+            // buttonInvestigate
+            // 
+            this.buttonInvestigate.Enabled = false;
+            this.buttonInvestigate.Location = new System.Drawing.Point(35, 256);
+            this.buttonInvestigate.Name = "buttonInvestigate";
+            this.buttonInvestigate.Size = new System.Drawing.Size(203, 40);
+            this.buttonInvestigate.TabIndex = 4;
+            this.buttonInvestigate.Text = "Look at Root";
+            this.buttonInvestigate.UseVisualStyleBackColor = true;
+            this.buttonInvestigate.Click += new System.EventHandler(this.buttonInvestigate_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 262);
+            this.ClientSize = new System.Drawing.Size(284, 382);
+            this.Controls.Add(this.buttonInvestigate);
             this.Controls.Add(this.buttonLogin);
             this.Controls.Add(this.labelInformation);
             this.Controls.Add(this.textBoxDesiredText);
             this.Controls.Add(this.buttonSetClipboard);
             this.Name = "Form1";
             this.Text = "Photo to Clipboard!";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -92,6 +106,7 @@
         private System.Windows.Forms.TextBox textBoxDesiredText;
         private System.Windows.Forms.Label labelInformation;
         private System.Windows.Forms.Button buttonLogin;
+        private System.Windows.Forms.Button buttonInvestigate;
     }
 }
 

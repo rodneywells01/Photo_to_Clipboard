@@ -92,6 +92,7 @@
     <Compile Include="FormWebBrowser.Designer.cs">
       <DependentUpon>FormWebBrowser.cs</DependentUpon>
     </Compile>
+    <Compile Include="LoginManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">

@@ -7,6 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Microsoft.OneDrive.Sdk;
+using Microsoft.OneDrive.Sdk.WindowsForms;
+
 
 /*
 
@@ -24,17 +27,16 @@ https://dev.onedrive.com/sdks.htm
 
 */
 
-
-
 namespace Photo_to_Clipboard
 {
     public partial class Form1 : Form
     {
         private AccessToken myAccessToken;
-
+        LoginManager myLoginManager;
         public Form1()
         {
             InitializeComponent();
+            myLoginManager = new LoginManager();
         }
 
         public System.Drawing.Image DownloadImageFromUrl(string imageUrl)
@@ -69,12 +71,10 @@ namespace Photo_to_Clipboard
 
         private void buttonSetClipboard_Click(object sender, EventArgs e)
         {
-            string desiredText = textBoxDesiredText.Text;
-            Clipboard.SetText(desiredText);
-            string imagelocation = "http://i.imgur.com/4DDzfxa.jpg";
-            // imagelocation = "C:/Users/Rodney/Desktop/W9OTW.jpg";
-            Image mypic = DownloadImageFromUrl(imagelocation);  
-            Clipboard.SetImage(mypic);
+            //string desiredText = textBoxDesiredText.Text;
+            // Clipboard.SetText(desiredText);
+            Clipboard.SetImage(myLoginManager.CurrentImage);
+            //Clipboard.SetImage(myLoginManager.CurrentImage);
             labelInformation.Text = "Image has been set!";
         }
 
@@ -95,14 +95,29 @@ namespace Photo_to_Clipboard
             }
         }
 
-        private void buttonLogin_Click(object sender, EventArgs e)
+        private async void buttonLogin_Click(object sender, EventArgs e)
         {
-            labelInformation.Text = "Access Token: " + GetAccessToken();
+            await myLoginManager.StartAuthenticationProcess();
+
+            if (myLoginManager.loggedin)
+            {
+                buttonInvestigate.Enabled = true;
+            }
+            //labelInformation.Text = "Access Token: " + GetAccessToken();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonInvestigate_Click(object sender, EventArgs e)
+        {
+            string path = "Pictures/oIhhvI7.jpg";
+            myLoginManager.LoadFolderFromPath(path);
+
         }
     }
-
-
-
 }
 
 
